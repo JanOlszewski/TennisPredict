@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    jdbcUrl: ${spring.datasource.url}
+    username: postgres
+    password: password
+    driverClassName: org.postgresql.Driver

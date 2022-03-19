@@ -14,6 +14,15 @@
 	<name>tennispredict</name>
 	<description>TennisPredict Application</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.3.3</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
 	<properties>
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
