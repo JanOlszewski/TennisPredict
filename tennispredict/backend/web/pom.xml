@@ -19,9 +19,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>pl.toyota.ltsportal</groupId>
+            <groupId>com.tennispredict</groupId>
             <artifactId>domain</artifactId>
-            <version>${project.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
 
