@@ -13,6 +13,7 @@ public class IndexController {
         return "forward:app/index.html";
     }
 
+    
     @GetMapping(value = "/")
     public String indexSlashed() {
         return "forward:index.html";
