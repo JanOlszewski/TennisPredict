@@ -1,69 +1,105 @@
-CREATE TABLE "atp_ranking" (
-  "rank_id" int PRIMARY KEY,
-  "ranking_date" date,
-  "rank" int,
-  "player" int,
-  "points" int
+CREATE TABLE "RANKING" (
+  "RANKING_ID" int PRIMARY KEY,
+  "RANKING_DATE" date,
+  "POSITION" int,
+  "PLAYER_ID" int,
+  "POINTS" int
 );
 
-CREATE TABLE "player" (
-  "player_id" int PRIMARY KEY,
-  "name_first" varchar(120),
-  "name_last" varchar(120),
-  "hand" varchar(10),
-  "birth_date" integer,
-  "country_cd" varchar(8),
-  "height" int,
-  "wikidata_id" varchar(24)
+CREATE TABLE "PLAYER" (
+  "PLAYER_ID" int PRIMARY KEY,
+  "NAME_FIRST" varchar(120),
+  "NAME_LAST" varchar(120),
+  "HAND" varchar(10),
+  "BIRTH_DATE" date,
+  "COUNTRY_CD" varchar(8),
+  "HEIGHT" int,
+  "WIKIDATA_ID" varchar(24)
 );
 
-CREATE TABLE "atp_match" (
-  "atp_match_id" int PRIMARY KEY,
-  "tourney_id" varchar(60),
-  "tourney_name" varchar(120),
-  "surface" varchar(30),
-  "draw_size" int,
-  "tourney_level" varchar(8),
-  "tourney_date" date,
-  "match_num" int,
-  "winner_id" int,
-  "winner_seed" int,
-  "winner_entry" varchar(8),
-  "loser_id" int,
-  "loser_seed" int,
-  "loser_entry" varchar(8),
-  "score" varchar(60),
-  "best_of" int,
-  "match_round" varchar(8),
-  "minutes" int,
-  "w_ace" int,
-  "w_df" int,
-  "w_svpt" int,
-  "w_1stln" int,
-  "w_1stWon" int,
-  "w_2ndWon" int,
-  "w_SvGms" int,
-  "w_bpSaved" int,
-  "w_bpFaced" int,
-  "l_ace" int,
-  "l_df" int,
-  "l_svpt" int,
-  "l_1stln" int,
-  "l_1stWon" int,
-  "l_2ndWon" int,
-  "l_SvGms" int,
-  "l_bpSaved" int,
-  "l_bpFaced" int,
-  "w_rank_id" int,
-  "l_rank_id" int
+CREATE TABLE "COUNTRY" (
+  "COUNTRY_CD" varchar(8) PRIMARY KEY,
+  "DESC" varchar(120)
 );
 
-ALTER TABLE "atp_ranking" ADD FOREIGN KEY ("player") REFERENCES "player" ("player_id");
+CREATE TABLE "MATCH" (
+  "MATCH_ID" int PRIMARY KEY,
+  "TOURNEY_CD" varchar(24),
+  "TOURNEY_DATE" date,
+  "MATCH_NUM" int,
+  "WINNER_ID" int,
+  "WINNER_SEED" int,
+  "WINNER_ENTRY_CD" varchar(4),
+  "LOSER_ID" int,
+  "LOSER_SEED" int,
+  "LOSER_ENTRY_CD" varchar(4),
+  "SCORE" varchar(60),
+  "BEST_OF" int,
+  "MATCH_ROUND_CD" varchar(8),
+  "MINUTES" int,
+  "W_ACE" int,
+  "W_DF" int,
+  "W_SV_PT" int,
+  "W_1ST_LN" int,
+  "W_1ST_WON" int,
+  "W_2ST_WON" int,
+  "W_SV_GMS" int,
+  "W_BP_SAVED" int,
+  "W_BP_FACED" int,
+  "W_RANKING_ID" int,
+  "L_ACE" int,
+  "L_DF" int,
+  "L_SV_PT" int,
+  "L_1ST_LN" int,
+  "L_1ST_WON" int,
+  "L_2ST_WON" int,
+  "L_SV_GMS" int,
+  "L_BP_SAVED" int,
+  "L_BP_FACED" int,
+  "L_RANKING_ID" int
+);
 
-ALTER TABLE "atp_match" ADD FOREIGN KEY ("winner_id") REFERENCES "player" ("player_id");
+CREATE TABLE "TOURNEY" (
+  "TOURNEY_CD" varchar(24) PRIMARY KEY,
+  "TOURNEY_NAME" varchar(120),
+  "SURFACE" varchar(30),
+  "DRAW_SIZE" int,
+  "LEVEL_CD" varchar(2)
+);
 
-ALTER TABLE "atp_match" ADD FOREIGN KEY ("loser_id") REFERENCES "player" ("player_id");
+CREATE TABLE "TOURNEY_LEVEL" (
+  "LEVEL_CD" varchar(2) PRIMARY KEY,
+  "DESC" varchar(120)
+);
 
-ALTER TABLE "atp_match" ADD FOREIGN KEY ("w_rank_id") REFERENCES "atp_ranking" ("rank_id");
+CREATE TABLE "ENTRY" (
+  "ENTRY_CD" varchar(4) PRIMARY KEY,
+  "ENTRY_DESC" varchar(120)
+);
 
-ALTER TABLE "atp_match" ADD FOREIGN KEY ("l_rank_id") REFERENCES "atp_ranking" ("rank_id");
+CREATE TABLE "MATCH_ROUND" (
+  "MATCH_ROUND_CD" varchar(8) PRIMARY KEY,
+  "DESC" varchar(120)
+);
+
+ALTER TABLE "RANKING" ADD FOREIGN KEY ("PLAYER_ID") REFERENCES "PLAYER" ("PLAYER_ID");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("WINNER_ID") REFERENCES "PLAYER" ("PLAYER_ID");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("LOSER_ID") REFERENCES "PLAYER" ("PLAYER_ID");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("W_RANKING_ID") REFERENCES "RANKING" ("RANKING_ID");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("L_RANKING_ID") REFERENCES "RANKING" ("RANKING_ID");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("TOURNEY_CD") REFERENCES "TOURNEY" ("TOURNEY_CD");
+
+ALTER TABLE "TOURNEY" ADD FOREIGN KEY ("LEVEL_CD") REFERENCES "TOURNEY_LEVEL" ("LEVEL_CD");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("WINNER_ENTRY_CD") REFERENCES "ENTRY" ("ENTRY_CD");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("LOSER_ENTRY_CD") REFERENCES "ENTRY" ("ENTRY_CD");
+
+ALTER TABLE "MATCH" ADD FOREIGN KEY ("MATCH_ROUND_CD") REFERENCES "MATCH_ROUND" ("MATCH_ROUND_CD");
+
+ALTER TABLE "PLAYER" ADD FOREIGN KEY ("COUNTRY_CD") REFERENCES "COUNTRY" ("COUNTRY_CD");
