@@ -20,6 +20,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref" : "/app/",
+            "deployUrl": "/app/",
             "outputPath": "dist/tennispredict-web",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -31,6 +33,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.sass"
             ],
             "scripts": []
@@ -99,6 +102,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.sass"
             ],
             "scripts": []
